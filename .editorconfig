@@ -1,0 +1,13 @@
+root = true
+
+[ParrotWings.Server/**]
+indent_style = tab
+indent_size = 4
+
+[ParrotWings.Client.Mobile/**]
+indent_style = tab
+indent_size = 4
+
+[ParrotWings.Client.Web/**]
+indent_style = tab
+indent_size = 2

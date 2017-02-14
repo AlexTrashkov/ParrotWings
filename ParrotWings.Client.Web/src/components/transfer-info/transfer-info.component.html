@@ -1,0 +1,25 @@
+<a href="#" routerLink="{{
+transfer.amount < 0
+	 ? '/create-transfer/' + transfer.partnerEmail + '/' +transfer.amount * -1
+	 : '/'
+	 }}"
+	 class="list-group-item" [ngClass]="{'fresh': transfer.isFresh }">
+
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="list-group-item-heading">{{transfer.partnerName}} <{{transfer.partnerEmail}}></h4>
+			<p class="list-group-item-text">{{transfer.createDate | amCalendar}}</p>
+		</div>
+		<div class="col-md-6 money-diff">
+			<span class="pull-right money-diff-plus"
+						*ngIf="transfer.amount > 0">
+				+${{transfer.amount}}
+			</span>
+			<span class="pull-right money-diff-minus"
+						*ngIf="transfer.amount < 0">
+				-${{transfer.amount * -1}}
+			</span>
+		</div>
+	</div>
+
+</a>

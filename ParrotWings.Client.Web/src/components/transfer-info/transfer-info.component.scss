@@ -1,0 +1,19 @@
+transfer-info {
+	.fresh {
+		background-color: azure;
+	}
+
+	.list-group-item {
+		margin: 5px 0 5px;
+	}
+
+	.money-diff {
+		font-size: 18px;
+		&-plus {
+			color: green;
+		}
+		&-minus {
+			color: red;
+		}
+	}
+}

@@ -1,0 +1,103 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<!-- Header -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			</button>
+			<a class="navbar-brand" href="#">{{'APP_NAME' | translate}}</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="#" routerLink="/create-transfer" routerLinkActive="active">{{'CREATE_TRANSFER' | translate}}</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">{{accountInfo.userName}} (${{accountInfo.currentBalance}})</a></li>
+				<li><a href="#" (click)="logout()">{{'LOGOUT' | translate}}</a></li>
+
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="col-sm-8 col-sm-offset-2">
+	<div class="container">
+
+		<!-- Search panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">{{'SORTING_AND_FILTERS' | translate}}</div>
+			<div class="panel-body form-inline">
+
+				<div class="form-group">
+					<label for="orderByContainer">{{'ORDER_BY' | translate}}:</label>
+					<div class="btn-group" id="orderByContainer">
+						<button type="button" class="btn btn-primary" (click)="updateSortingOrder(transferSortingOrder.CreateAt)">
+							{{'CREATE_DATE' | translate}}
+						</button>
+						<button type="button" class="btn btn-primary" (click)="updateSortingOrder(transferSortingOrder.Amount)">
+							{{'AMOUNT' | translate}}
+						</button>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="sortingOrderContainer">{{'SORTING_ORDER' | translate}}:</label>
+					<div class="btn-group" id="sortingOrderContainer">
+						<button type="button" class="btn btn-primary" (click)="updateSortingDirection(false)">
+							{{'ASCENDANT' | translate}}
+						</button>
+						<button type="button" class="btn btn-primary" (click)="updateSortingDirection(true)">
+							{{'DESCENDING' | translate}}
+						</button>
+					</div>
+				</div>
+
+				<div class="form-group margin-right">
+					<label for="dateMinContainer">{{'MINIMAL_DATE' | translate}}:</label>
+					<ng2-datepicker id="dateMinContainer" [(ngModel)]="dateMin"></ng2-datepicker>
+				</div>
+
+				<div class="form-group margin-right">
+					<label for="dateMaxContainer">{{'MAXIMAL_DATE' | translate}}:</label>
+					<ng2-datepicker id="dateMaxContainer" [(ngModel)]="dateMax"></ng2-datepicker>
+				</div>
+
+				<div class="form-group">
+					<label for="amountMinContainer">{{'MINIMAL_AMOUNT' | translate}}:</label>
+					<input type="text" class="form-control" id="amountMinContainer" [(ngModel)]="amountMin">
+				</div>
+
+				<div class="form-group">
+					<label for="amountMaxContainer">{{'MAXIMAL_AMOUNT' | translate}}:</label>
+					<input type="text" class="form-control" id="amountMaxContainer" [(ngModel)]="amountMax">
+				</div>
+
+				<div class="form-group">
+					<label for="participantNameContainer">{{'PARTICIPANT_NAME' | translate}}:</label>
+					<input type="text" class="form-control" id="participantNameContainer" [(ngModel)]="participantName">
+				</div>
+
+				<button type="button" class="btn btn-primary search-button" (click)="refreshTransfers()">
+					{{'SEARCH' | translate}}
+				</button>
+
+			</div>
+		</div>
+
+		<div *ngIf="isLoading">
+			<div class="state-text">{{'SEARCH_TRANSFERS' | translate}}...</div>
+			<div style="text-align: center">
+				<img src="../../assets/loader-big.gif" class="loader">
+			</div>
+		</div>
+
+		<!-- Transfers list -->
+		<div class="list-group">
+			<transfer-info [transfer]='transfer' *ngFor="let transfer of transfers"></transfer-info>
+		</div>
+
+	</div>
+</div>

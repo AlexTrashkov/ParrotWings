@@ -1,0 +1,67 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+
+		<!-- Header -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			</button>
+			<a class="navbar-brand" href="#">{{'APP_NAME' | translate}}</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="#" routerLink="/home" routerLinkActive="active">{{'YOUR_TRANSFERS' | translate}}</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">{{accountInfo.userName}} (${{accountInfo.currentBalance}})</a></li>
+				<li><a href="#" (click)="logout()">{{'LOGOUT' | translate}}</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="col-sm-8 col-sm-offset-2">
+	<div class="container">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">{{'CREATE_NEW_TRANSFER' | translate}}</div>
+			<div class="panel-body form-inline">
+
+				<div class="form-group">
+					<label for="selectedUserContainer">{{'TRANSFER_FOR_USER' | translate}}:</label>
+					<div id="selectedUserContainer">
+						<ng2-completer
+							inputClass="form-control"
+							[(ngModel)]="userEmail"
+							(selected)="tryResolveUser()"
+							[dataService]="dataService"
+							[minSearchLength]="2"></ng2-completer>
+					</div>
+
+				</div>
+
+				<div class="form-group max-width-200">
+					<label for="amountContainer">{{'AMOUNT' | translate}}:</label>
+					<input type="text" class="form-control" id="amountContainer" [(ngModel)]="amount">
+				</div>
+
+				<div class="form-group margin-top">
+					<button type="button" class="btn btn-primary search-button"
+									[disabled]="
+									!userToInfo ||
+									userToInfo.id == accountInfo.id ||
+									!isNumber(amount) ||
+									amount <= 0 ||
+									amount >= accountInfo.currentBalance"
+
+									(click)="createTransfer()">
+						{{'CREATE_TRANSFER' | translate}}
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
